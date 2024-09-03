@@ -1,0 +1,9 @@
+[submodule "docker-elk"]
+	path = docker-elk
+	url = https://github.com/deviantony/docker-elk.git
+[submodule "minio"]
+	path = minio
+	url = https://github.com/minio/minio.git
+[submodule "docker-spark-cluster"]
+	path = docker-spark-cluster
+	url = https://github.com/mvillarrealb/docker-spark-cluster.git
