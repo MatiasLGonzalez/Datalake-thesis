@@ -1,0 +1,209 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.virtualenv
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env.local
+.env.development
+.env.test
+.env.production
+.*env
+
+# Docker
+.dockerignore
+
+# Logs
+*.log
+logs/
+spark/logs/
+
+# MinIO/S3 data storage (keep structure but ignore data)
+storage/minio/*
+!storage/minio/.gitkeep
+
+# Spark temporary files
+spark/tmp/
+spark/work/
+spark/derby.log
+spark/metastore_db/
+
+# Spark event logs
+spark/spark-events/
+
+# Spark warehouse
+spark-warehouse/
+
+# Compiled Java classes
+*.class
+
+# JAR files (keep required ones, ignore others)
+*.jar
+spark/jars/hadoop-aws-3.3.4.jar
+spark/jars/aws-java-sdk-bundle-1.11.1026.jar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.properties
+
+# SBT
+.sbt
+project/target/
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala
+*.class
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+.tmp/
+tmp/
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Data files (ignore large data files but keep samples)
+*.parquet
+*.avro
+*.orc
+data/large_datasets/
+data/raw/
+data/processed/
+!spark/data/sample_*
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Checkpoints and savepoints
+checkpoints/
+savepoints/
+
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+
+# Configuration overrides
+config/local/
+config/development/
+config/production/
+application-local.conf
+application-development.conf
+application-production.conf
+
+# Documentation builds
+docs/_build/
+site/
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Local development
+.local/
+.cache/
+
+# Spark UI and history server files
+spark-events/
+history/
+
+# Hadoop
+hadoop-logs/
+
+# Hive
+derby.log
+metastore_db/
+

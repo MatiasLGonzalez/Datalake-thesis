@@ -1,0 +1,11 @@
+customer_id,first_name,last_name,email,age,city,country,registration_date
+1,John,Doe,john.doe@email.com,25,New York,USA,2023-01-15
+2,Jane,Smith,jane.smith@email.com,30,London,UK,2023-02-20
+3,Carlos,Garcia,carlos.garcia@email.com,35,Madrid,Spain,2023-03-10
+4,Marie,Dubois,marie.dubois@email.com,28,Paris,France,2023-04-05
+5,Hiroshi,Tanaka,hiroshi.tanaka@email.com,32,Tokyo,Japan,2023-05-12
+6,Anna,Mueller,anna.mueller@email.com,27,Berlin,Germany,2023-06-08
+7,Roberto,Silva,roberto.silva@email.com,29,São Paulo,Brazil,2023-07-14
+8,Priya,Sharma,priya.sharma@email.com,26,Mumbai,India,2023-08-21
+9,Ahmed,Hassan,ahmed.hassan@email.com,31,Cairo,Egypt,2023-09-18
+10,Elena,Popov,elena.popov@email.com,33,Moscow,Russia,2023-10-25

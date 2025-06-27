@@ -1,0 +1,11 @@
+product_id|product_name|category|price|stock_quantity|supplier|description
+P001|MacBook Pro|Electronics|1999.99|50|Apple|High-performance laptop for professionals
+P002|Coffee Machine|Kitchen|299.99|25|Breville|Automatic espresso machine with milk frother
+P003|Nike Air Max|Sports|149.99|100|Nike|Comfortable running shoes with air cushioning
+P004|Samsung TV|Electronics|799.99|30|Samsung|55-inch 4K Smart TV with HDR
+P005|Yoga Mat|Sports|29.99|200|Manduka|Premium yoga mat with excellent grip
+P006|Cookbook|Books|24.99|75|Random House|Collection of healthy recipes
+P007|Bluetooth Speaker|Electronics|79.99|60|JBL|Portable speaker with excellent sound quality
+P008|Office Chair|Furniture|299.99|40|Herman Miller|Ergonomic office chair for comfort
+P009|Water Bottle|Sports|19.99|150|Hydro Flask|Insulated stainless steel water bottle
+P010|Tablet|Electronics|449.99|35|iPad|10-inch tablet perfect for work and entertainment

@@ -1,0 +1,15 @@
+2023-11-01 10:30:15 INFO [UserService] User login successful: user_id=1, ip=192.168.1.100
+2023-11-01 10:31:22 INFO [ProductService] Product viewed: product_id=P001, user_id=1
+2023-11-01 10:32:45 INFO [CartService] Item added to cart: product_id=P001, user_id=1, quantity=1
+2023-11-01 10:35:12 INFO [PaymentService] Payment initiated: transaction_id=txn_001, amount=999.99
+2023-11-01 10:35:30 INFO [PaymentService] Payment completed: transaction_id=txn_001, status=success
+2023-11-01 10:36:00 INFO [OrderService] Order created: order_id=ORD_001, user_id=1, total=999.99
+2023-11-01 14:15:33 ERROR [PaymentService] Payment failed: transaction_id=txn_002, error=insufficient_funds
+2023-11-01 14:16:15 INFO [UserService] Password reset requested: user_id=2, email=jane.smith@email.com
+2023-11-01 16:20:44 WARN [SecurityService] Multiple login attempts detected: ip=192.168.1.200, user_id=3
+2023-11-01 18:45:22 INFO [RecommendationService] Recommendations generated: user_id=1, count=5
+2023-11-02 09:15:30 INFO [UserService] New user registration: user_id=11, email=new.user@email.com
+2023-11-02 11:22:18 ERROR [DatabaseService] Connection timeout: database=products, duration=30000ms
+2023-11-02 13:33:45 INFO [InventoryService] Stock updated: product_id=P003, old_stock=100, new_stock=95
+2023-11-02 15:44:22 WARN [APIService] Rate limit exceeded: api_key=key_123, endpoint=/api/products
+2023-11-02 17:55:10 INFO [NotificationService] Email sent: user_id=2, type=order_confirmation
