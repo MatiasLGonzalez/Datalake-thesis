@@ -48,8 +48,8 @@ thesis_data_lake/
 │   │   ├── 05_generated_data_ingestion.py   # Synthetic data generation
 │   │   └── 06_database_simulation.py        # Database table ingestion
 │   ├── jars/                   # Required JAR dependencies
-│   │   ├── hadoop-aws-3.3.4.jar              # Hadoop S3A filesystem
-│   │   └── aws-java-sdk-bundle-1.11.1026.jar # AWS SDK for S3 operations
+│   │   ├── hadoop-aws-3.4.1.jar              # Hadoop S3A filesystem
+│   │   └── bundle-2.31.70.jar                 # AWS SDK for S3 operations
 │   └── data/                   # Sample data files
 │       ├── sample_customers.csv              # Customer data
 │       ├── sample_transactions.json          # Transaction records
@@ -92,7 +92,7 @@ Run a simple ingestion example:
 
 ```bash
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/01_csv_ingestion.py
 ```
 
@@ -114,7 +114,7 @@ Verification: 10 customer records processed
 ```bash
 # Run CSV ingestion
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/01_csv_ingestion.py
 ```
 
@@ -133,7 +133,7 @@ docker exec spark-master /opt/spark/bin/spark-submit \
 ```bash
 # Run JSON ingestion
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/02_json_ingestion.py
 ```
 
@@ -152,7 +152,7 @@ docker exec spark-master /opt/spark/bin/spark-submit \
 ```bash
 # Run delimited file ingestion
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/03_delimited_file_ingestion.py
 ```
 
@@ -171,7 +171,7 @@ docker exec spark-master /opt/spark/bin/spark-submit \
 ```bash
 # Run log file ingestion
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/04_log_file_ingestion.py
 ```
 
@@ -189,7 +189,7 @@ docker exec spark-master /opt/spark/bin/spark-submit \
 ```bash
 # Run generated data ingestion
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/05_generated_data_ingestion.py
 ```
 
@@ -205,7 +205,7 @@ docker exec spark-master /opt/spark/bin/spark-submit \
 ```bash
 # Run database simulation
 docker exec spark-master /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars-extra/hadoop-aws-3.3.4.jar,/opt/spark/jars-extra/aws-java-sdk-bundle-1.11.1026.jar \
+  --jars /opt/spark/jars-extra/hadoop-aws-3.4.1.jar,/opt/spark/jars-extra/bundle-2.31.70.jar \
   /opt/spark/apps/06_database_simulation.py
 ```
 

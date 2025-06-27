@@ -16,7 +16,7 @@ services:
       - spark-network
 
   spark-master:
-    image: apache/spark:3.5.0
+    image: apache/spark:latest
     container_name: spark-master
     user: "0:0"  # Run as root to fix permission issues
     ports:
@@ -40,7 +40,7 @@ services:
       - spark-network
 
   spark-worker-1:
-    image: apache/spark:3.5.0
+    image: apache/spark:latest
     container_name: spark-worker-1
     user: "0:0"  # Run as root to fix permission issues
     ports:
@@ -63,7 +63,7 @@ services:
       - spark-network
 
   spark-worker-2:
-    image: apache/spark:3.5.0
+    image: apache/spark:latest
     container_name: spark-worker-2
     user: "0:0"  # Run as root to fix permission issues
     ports:
