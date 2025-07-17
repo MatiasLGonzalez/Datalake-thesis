@@ -15,6 +15,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import current_timestamp, lit
 import os
 
+from ingestion_service import IngestionService
+from validation_service import ValidationService
+
 def create_spark_session():
     """Create Spark session with MinIO configuration"""
     # Get credentials from environment variables
@@ -42,32 +45,48 @@ def main():
     spark.sparkContext.setLogLevel("WARN")
     
     try:
-        # Read CSV file from local filesystem
-        print("Reading CSV file: sample_customers.csv")
-        customers_df = spark.read.option("header", "true").option("inferSchema", "true").csv("file:///opt/spark/data/sample_customers.csv")
+        # Initialize services
+        ingestion_service = IngestionService(spark)
+        validation_service = ValidationService(spark)
         
-        print("CSV file loaded successfully!")
-        print(f"Total records: {customers_df.count()}")
+        # Read CSV file using ingestion service
+        print("Reading CSV file: sample_customers.csv")
+        customers_df = ingestion_service.read_from_local("/opt/spark/data/sample_customers.csv")
+        
         print("Schema:")
         customers_df.printSchema()
         
         print("\nSample data:")
         customers_df.show(5)
         
-        # Store raw data in original CSV format
-        output_path = "s3a://test-bucket/raw-data/customers/"
-        print(f"Writing raw CSV data to MinIO: {output_path}")
+        print("\n🚀 USING TRANSIENT LANDING ZONE PIPELINE WITH VALIDATION")
+        print("=" * 60)
         
-        customers_df.write.mode("overwrite").option("header", "true").csv(output_path)
-        print("Raw CSV data successfully stored!")
+        # 1. Validate data quality before ingestion
+        print("1. Validating data quality...")
+        validation_results = validation_service.validate_data(customers_df, "customers")
         
-        # Verify the ingestion
-        print("\nVerifying data in MinIO...")
-        read_back_df = spark.read.option("header", "true").option("inferSchema", "true").csv(output_path)
-        print(f"Verification successful! Records in MinIO: {read_back_df.count()}")
+        # 2. Decide whether to proceed based on validation
+        if validation_results.get("success", False):
+            print("\n✅ Data quality validation passed - proceeding with ingestion")
+            
+            # 3. Ingest to Transient Zone
+            print("\n2. Ingesting to Transient Zone...")
+            transient_path = ingestion_service.ingest_to_transient_zone(customers_df, "customers")
+            
+            # 4. Read from Transient Zone
+            print("\n3. Reading from Transient Zone...")
+            transient_df = ingestion_service.read_from_bucket("transient-landing-zone", "customers", format="csv")
+            
+            print("\nSample data from Transient Zone:")
+            transient_df.show(3)
+            
+        else:
+            print("\n❌ Data quality validation failed - stopping ingestion")
+            print("Data needs to be reviewed and corrected before proceeding")
         
-        print("\nSample data from MinIO:")
-        read_back_df.show(3)
+        # Cleanup services
+        validation_service.cleanup()
         
         print("\nCSV Ingestion completed successfully!")
         
