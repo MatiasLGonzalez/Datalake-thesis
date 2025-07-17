@@ -16,7 +16,6 @@ from pyspark.sql.functions import current_timestamp, lit
 import os
 
 from ingestion_service import IngestionService
-from validation_service import ValidationService
 
 def create_spark_session():
     """Create Spark session with MinIO configuration"""
@@ -45,9 +44,8 @@ def main():
     spark.sparkContext.setLogLevel("WARN")
     
     try:
-        # Initialize services
+        # Initialize ingestion service (includes all other services)
         ingestion_service = IngestionService(spark)
-        validation_service = ValidationService(spark)
         
         # Read CSV file using ingestion service
         print("Reading CSV file: sample_customers.csv")
@@ -59,34 +57,23 @@ def main():
         print("\nSample data:")
         customers_df.show(5)
         
-        print("\n🚀 USING TRANSIENT LANDING ZONE PIPELINE WITH VALIDATION")
+        print("\n🚀 USING ENHANCED TRANSIENT LANDING ZONE PIPELINE")
         print("=" * 60)
+        print("Pipeline includes: Validation → Security → Compliance → Storage")
         
-        # 1. Validate data quality before ingestion
-        print("1. Validating data quality...")
-        validation_results = validation_service.validate_data(customers_df, "customers")
+        # Ingest to Transient Zone with full pipeline
+        print("\nStarting comprehensive ingestion pipeline...")
+        transient_path = ingestion_service.ingest_to_transient_zone(customers_df, "customers")
         
-        # 2. Decide whether to proceed based on validation
-        if validation_results.get("success", False):
-            print("\n✅ Data quality validation passed - proceeding with ingestion")
-            
-            # 3. Ingest to Transient Zone
-            print("\n2. Ingesting to Transient Zone...")
-            transient_path = ingestion_service.ingest_to_transient_zone(customers_df, "customers")
-            
-            # 4. Read from Transient Zone
-            print("\n3. Reading from Transient Zone...")
-            transient_df = ingestion_service.read_from_bucket("transient-landing-zone", "customers", format="csv")
-            
-            print("\nSample data from Transient Zone:")
-            transient_df.show(3)
-            
-        else:
-            print("\n❌ Data quality validation failed - stopping ingestion")
-            print("Data needs to be reviewed and corrected before proceeding")
+        # Read from Transient Zone to verify
+        print("\nReading processed data from Transient Zone...")
+        transient_df = ingestion_service.read_from_bucket("transient-landing-zone", "customers", format="csv")
+        
+        print("\nProcessed data from Transient Zone:")
+        transient_df.show(3)
         
         # Cleanup services
-        validation_service.cleanup()
+        ingestion_service.cleanup()
         
         print("\nCSV Ingestion completed successfully!")
         

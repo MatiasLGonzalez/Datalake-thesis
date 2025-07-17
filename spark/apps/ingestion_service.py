@@ -15,6 +15,9 @@ import os
 import json
 import logging
 from datetime import datetime
+from validation_service import ValidationService
+from security_service import SecurityService
+from compliance_service import ComplianceService
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +37,9 @@ class IngestionService:
     def __init__(self, spark_session, bucket_name="test-bucket"):
         self.spark = spark_session
         self.bucket_name = bucket_name
+        self.validation_service = ValidationService(spark_session)
+        self.security_service = SecurityService(spark_session)
+        self.compliance_service = ComplianceService(spark_session)
 
     
     def load_to_bucket(self, zone, entity_name, df, format="csv", mode="overwrite", options=None):
@@ -162,7 +168,7 @@ class IngestionService:
     
     def ingest_to_transient_zone(self, df, entity_name):
         """
-        Ingest data to transient landing zone with basic processing
+        Ingest data to transient landing zone with comprehensive processing
         
         Args:
             df: Source DataFrame
@@ -171,8 +177,48 @@ class IngestionService:
         Returns:
             str: Output path
         """
-        return self.load_to_bucket(DataLakeZones.TRANSIENT, entity_name, df)
+        print(f"🚀 Starting transient zone ingestion for {entity_name}")
+        
+        # 1. Data Quality Validation
+        print("1. Performing data quality validation...")
+        validation_results = self.validation_service.validate_data(df, entity_name)
+        
+        if not validation_results.get("success", False):
+            raise ValueError(f"Data validation failed for {entity_name}: {validation_results}")
+        
+        # 2. Security Transformations (PII masking, etc.)
+        print("2. Applying security measures...")
+        secured_df = self.security_service.apply_security_measures(df, entity_name)
+        
+        # 3. Compliance Checks (FERPA, GDPR)
+        print("3. Verifying compliance...")
+        compliance_results = self.compliance_service.verify_compliance(secured_df, entity_name)
+        
+        if not compliance_results.get("overall_compliant", False):
+            raise ValueError(f"Compliance verification failed for {entity_name}: {compliance_results}")
+        
+        # 4. Store in transient zone (temporary)
+        print("4. Storing to transient zone...")
+        return self.load_to_bucket(DataLakeZones.TRANSIENT, entity_name, secured_df)
     
+    def ingest_to_raw_zone(self, df, entity_name):
+        """
+        Ingest data to raw zone with minimal processing
+        
+        Args:
+            df: Source DataFrame
+            entity_name: Entity name
+        
+        Returns:
+            str: Output path
+        """
+        # Load to Raw Zone (Data is technically clean)
+        return self.load_to_bucket(DataLakeZones.RAW, entity_name, df)
     
-    
-    
+    def cleanup(self):
+        """Cleanup all services"""
+        print("🧹 Cleaning up IngestionService...")
+        self.validation_service.cleanup()
+        self.security_service.cleanup()
+        self.compliance_service.cleanup()
+        print("✅ IngestionService cleanup completed")
