@@ -8,6 +8,7 @@ mc alias set myminio http://minio:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD
 
 # Create buckets
 mc mb myminio/university-data-lake --ignore-existing
+mc mb myminio/university-data-lake/fpuna/academic-department/logs/ --ignore-existing
 mc mb myminio/university-data-lake/fpuna/academic-department/transient/ --ignore-existing
 mc mb myminio/university-data-lake/fpuna/academic-department/raw/ --ignore-existing
 mc mb myminio/university-data-lake/fpuna/academic-department/trusted/ --ignore-existing
